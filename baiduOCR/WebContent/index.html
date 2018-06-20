@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>index</title>
+<script src="/baiduOCR/static_login/js/jquery.js"></script>
+<script type="text/javascript" src="/baiduOCR/static_login/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+ 
+	$("#mybtn").click(function(){
+  	 $.ajaxFileUpload({
+	          url:'/baiduOCR/upload',
+	          dataType : 'text',                   
+	          fileElementId:'imgFile',        
+	          success:function(data){
+	          	var _data = $.parseJSON($(data).text());
+	         	if('success'==_data.res){
+	         		alert("上传成功，进入验证页面..");
+	         		window.location.href="/baiduOCR/view/login"
+	         	}else if ('exist'==_data.res){
+	         		alert("已经上传过");
+	         	} else {
+	         		alert("上传失败，请重试");
+	         	}
+	          },
+	          error:function(data, status, e){
+	        	  alert("上传失败，请重试");
+	          }
+		});
+	});
+});
+</script>
+</head>
+<body>
+	<ul class="forminfo">
+	 <li><label>身份证</label>
+    <input type="file" id="imgFile" name="imgFile" accept="image/png,image/jpeg, image/jpg"/>
+    <input type="button" id="mybtn" value="上传身份证正面"/>
+    </li>
+	</ul>
+</body>
+</html>
